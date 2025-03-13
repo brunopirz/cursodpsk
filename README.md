@@ -14,5 +14,5 @@ Plataforma de streaming de cursos online com interface similar à Netflix.
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/seu-usuario/cursos-flix.git
+git clone https://github.com/brunopirz/cursodpsk.git
 cd cursos-flix
