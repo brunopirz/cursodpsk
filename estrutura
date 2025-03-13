@@ -1,0 +1,24 @@
+cursos-flix/
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── App.jsx
+│   │   └── index.jsx
+│   ├── Dockerfile
+│   ├── package.json
+│   └── nginx.conf
+│
+├── backend/
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── models/
+│   │   ├── routes/
+│   │   └── index.js
+│   ├── Dockerfile
+│   ├── package.json
+│   └── .env.example
+│
+├── docker-compose.yaml
+└── README.md
