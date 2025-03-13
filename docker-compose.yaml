@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: cursosflix-frontend:latest
+    build: ./frontend
+    container_name: cursosflix-frontend
+    networks:
+      - network_public
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.cursosflix-frontend.rule=Host(`cursosflix.zapchat.shop`)
+      - traefik.http.routers.cursosflix-frontend.entrypoints=websecure
+      - traefik.http.routers.cursosflix-frontend.tls.certresolver=myresolver
+    environment:
+      - REACT_APP_API_URL=https://api.cursosflix.zapchat.shop
+    restart: unless-stopped
+
+  backend:
+    image: cursosflix-backend:latest
+    build: ./backend
+    container_name: cursosflix-backend
+    networks:
+      - network_public
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.cursosflix-backend.rule=Host(`api.cursosflix.zapchat.shop`)
+      - traefik.http.routers.cursosflix-backend.entrypoints=websecure
+      - traefik.http.routers.cursosflix-backend.tls.certresolver=myresolver
+    environment:
+      - DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@db:5432/${DB_NAME}
+      - JWT_SECRET=${JWT_SECRET}
+      - STRIPE_KEY=${STRIPE_KEY}
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  db:
+    image: postgres:15-alpine
+    container_name: cursosflix-db
+    networks:
+      - network_public
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+
+networks:
+  network_public:
+    external: true
