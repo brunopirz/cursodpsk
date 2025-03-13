@@ -16,7 +16,7 @@ Plataforma de streaming de cursos online com interface similar à Netflix.
 ```bash
 git clone https://github.com/brunopirz/cursodpsk.git
 cd cursodpsk
-docker-compose build
+docker-compose build```
 
 No Portainer:
 
